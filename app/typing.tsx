@@ -21,6 +21,7 @@ export type TStoreState = {
 export interface IStoreActions {
   increment: () => void;
   decrement: () => void;
+  incrementAsync: () => void;
 };
 
 export interface IStore extends TStoreState, IStoreActions {

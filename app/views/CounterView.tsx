@@ -1,5 +1,5 @@
 import React from 'react';
-import {Text, View, TouchableOpacity, StyleSheet} from 'react-native';
+import {Text, View, TouchableOpacity, StyleSheet, Alert} from 'react-native';
 import { connect } from 'react-redux';
 
 import {TComponentProps, TStoreState, IStore} from '../typing';
@@ -12,10 +12,15 @@ class CounterView extends React.Component<
   constructor(props: any) {
     super(props);
     this.handleClick = this.handleClick.bind(this);
+    this.handleClickAsync = this.handleClickAsync.bind(this);
   }
 
   handleClick() {
     this.props.increment();
+  }
+
+  handleClickAsync() {
+    this.props.incrementAsync();
   }
 
   render() {
@@ -28,10 +33,24 @@ class CounterView extends React.Component<
           <TouchableOpacity onPress={this.handleClick} style={styles.button}>
             <Text style={styles.buttonText}>Click Me</Text>
           </TouchableOpacity>
+          <TouchableOpacity onPress={this.handleClickAsync} style={styles.button}>
+            <Text style={styles.buttonText}>Inc after 3 seconds</Text>
+          </TouchableOpacity>
         </View>
       </View>
     );
   }
+}
+
+const incrementAsync = () => (dispatch: typeof store.dispatch) => {
+  console.log("increment after 3 sec...");
+  fetch('https://example.org/').then(async (reponse) => {
+    const text = await reponse.text();
+    const found = text.match(/<title>([a-zA-Z0-9 ]*)<\/title>/)
+    console.log(found ? found[1] : "no title found");
+    console.log("increment...");
+    dispatch(counterSlice.actions.increment());
+  });
 }
 
 const mapStateToProps = (state: TStoreState, ownProps: TComponentProps) => {
@@ -43,6 +62,7 @@ const mapDispatchToProps = (dispatch: typeof store.dispatch) => {
   return {
     increment: () => dispatch({type: "counter/increment"}),
     decrement: () => dispatch(counterSlice.actions.decrement()),  // this equals to dispatch({type: "counter/decrement"})
+    incrementAsync: () => dispatch(incrementAsync()),
   }  
 }
 
@@ -64,13 +84,13 @@ const styles = StyleSheet.create({
   buttonsContainer: {
     width: "100%",
     alignItems: "center",
-    marginTop: 32,
   },
   button: {
     paddingHorizontal: 24,
     paddingVertical: 8,
     backgroundColor: "#005ce6",
     borderRadius: 10,
+    marginTop: 32,
   },
   buttonText: {
     fontSize: 18,
