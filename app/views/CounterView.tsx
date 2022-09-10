@@ -3,7 +3,8 @@ import {Text, View, TouchableOpacity, StyleSheet} from 'react-native';
 import { connect } from 'react-redux';
 
 import {TComponentProps, TStoreState, IStore} from '../typing';
-import store from '../store';
+import store, { counterSlice } from '../store';
+
 
 class CounterView extends React.Component<
   IStore
@@ -21,7 +22,7 @@ class CounterView extends React.Component<
     return (
       <View style={styles.container}>
         <View style={styles.counterContainer}>
-          <Text style={styles.counterText}>{this.props.storeCounter}</Text>
+          <Text style={styles.counterText}>{this.props.counter.storeCounter}</Text>
         </View>
         <View style={styles.buttonsContainer}>
           <TouchableOpacity onPress={this.handleClick} style={styles.button}>
@@ -40,8 +41,8 @@ const mapStateToProps = (state: TStoreState, ownProps: TComponentProps) => {
 
 const mapDispatchToProps = (dispatch: typeof store.dispatch) => {
   return {
-    increment: () => dispatch({ type: 'INC_COUNTER' }),
-    decrement: () => dispatch({ type: 'DEC_COUNTER' }),
+    increment: () => dispatch({type: "counter/increment"}),
+    decrement: () => dispatch(counterSlice.actions.decrement()),  // this equals to dispatch({type: "counter/decrement"})
   }  
 }
 

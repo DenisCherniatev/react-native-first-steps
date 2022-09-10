@@ -10,8 +10,12 @@ export type TComponentState = {
   counter: number;
 };
 
-export type TStoreState = {
+export type TStoreCounterState = {
   storeCounter: number;
+};
+
+export type TStoreState = {
+  counter: TStoreCounterState;
 };
 
 export interface IStoreActions {

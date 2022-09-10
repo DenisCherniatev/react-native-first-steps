@@ -1,24 +1,23 @@
-import { Reducer } from 'react';
-import { createStore, AnyAction } from 'redux';
+import { createSlice, configureStore } from '@reduxjs/toolkit'
 
-import { TStoreState } from './typing';
 
-const defaultStoreState: TStoreState = {
-  storeCounter: 0,
-}
+export const counterSlice = createSlice({
+  name: 'counter',
+  initialState: {
+    storeCounter: 0,
+  },
+  reducers: {
+    increment: (state) => {
+      state.storeCounter += 1
+    },
+    decrement: (state) => {
+      state.storeCounter -= 1
+    },
+  },
+})
 
-const todosReducer = (state=defaultStoreState, action: AnyAction): TStoreState => {
-  switch (action.type) {
-    case 'INC_COUNTER':
-      return {...state, storeCounter: state.storeCounter + 1 }
-    case 'DEC_COUNTER':
-      return {...state, storeCounter: state.storeCounter - 1 }
-    default:
-      return state
+export default configureStore({
+  reducer: {
+    counter: counterSlice.reducer,
   }
-}
-
-const store = createStore(todosReducer);
-console.log("createStore...");
-
-export default store
+})
