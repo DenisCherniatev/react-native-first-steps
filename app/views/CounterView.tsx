@@ -1,34 +1,27 @@
 import React from 'react';
 import {Text, View, TouchableOpacity, StyleSheet} from 'react-native';
+import { connect } from 'react-redux';
 
-import {ComponentProps, ComponentState} from '../typing';
+import {TComponentProps, TStoreState, IStore} from '../typing';
+import store from '../store';
 
-export class CounterView extends React.Component<
-  ComponentProps,
-  ComponentState
+class CounterView extends React.Component<
+  IStore
 > {
   constructor(props: any) {
     super(props);
-    this.state = {
-      counter: 0,
-    };
     this.handleClick = this.handleClick.bind(this);
-    this.componentDidMount = this.componentDidMount.bind(this);
-  }
-
-  componentDidMount() {
-    this.setState({counter: 1});
   }
 
   handleClick() {
-    this.setState({counter: this.state.counter + 1});
+    this.props.increment();
   }
 
   render() {
     return (
       <View style={styles.container}>
         <View style={styles.counterContainer}>
-          <Text style={styles.counterText}>{this.state.counter}</Text>
+          <Text style={styles.counterText}>{this.props.storeCounter}</Text>
         </View>
         <View style={styles.buttonsContainer}>
           <TouchableOpacity onPress={this.handleClick} style={styles.button}>
@@ -39,6 +32,20 @@ export class CounterView extends React.Component<
     );
   }
 }
+
+const mapStateToProps = (state: TStoreState, ownProps: TComponentProps) => {
+  console.log("mapStateToProps state:", state);
+  return {...state}
+}
+
+const mapDispatchToProps = (dispatch: typeof store.dispatch) => {
+  return {
+    increment: () => dispatch({ type: 'INC_COUNTER' }),
+    decrement: () => dispatch({ type: 'DEC_COUNTER' }),
+  }  
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(CounterView);
 
 const styles = StyleSheet.create({
   container: {

@@ -10,22 +10,26 @@
 
 import React from 'react';
 import {SafeAreaView, ScrollView, StatusBar, View} from 'react-native';
+import { Provider } from 'react-redux';
 
 import {Header} from 'react-native/Libraries/NewAppScreen';
 
-import {CounterView} from './app/views/CounterView';
+import store from './app/store';
+import CounterView from './app/views/CounterView';
 
 const App = () => {
   return (
-    <SafeAreaView>
-      <StatusBar barStyle={'light-content'} />
-      <ScrollView contentInsetAdjustmentBehavior="automatic">
-        <Header />
-        <View>
-          <CounterView />
-        </View>
-      </ScrollView>
-    </SafeAreaView>
+    <Provider store={store}>
+      <SafeAreaView>
+        <StatusBar barStyle={'light-content'} />
+        <ScrollView contentInsetAdjustmentBehavior="automatic">
+          <Header />
+          <View>
+            <CounterView />
+          </View>
+        </ScrollView>
+      </SafeAreaView>
+    </Provider>
   );
 };
 

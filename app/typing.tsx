@@ -3,9 +3,21 @@ export type ISomeObject = {
   title: string;
 };
 
-export type ComponentProps = {
+export type TComponentProps = {
 };
 
-export type ComponentState = {
+export type TComponentState = {
   counter: number;
+};
+
+export type TStoreState = {
+  storeCounter: number;
+};
+
+export interface IStoreActions {
+  increment: () => void;
+  decrement: () => void;
+};
+
+export interface IStore extends TStoreState, IStoreActions {
 };
