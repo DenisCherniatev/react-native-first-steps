@@ -1,5 +1,5 @@
 import React from 'react';
-import {Text, View, TouchableOpacity, StyleSheet, Alert} from 'react-native';
+import {Text, View, TouchableOpacity, StyleSheet, Linking, Alert} from 'react-native';
 import { connect } from 'react-redux';
 
 import {TComponentProps, TStoreState, IStore} from '../typing';
@@ -23,6 +23,10 @@ class CounterView extends React.Component<
     this.props.incrementAsync();
   }
 
+  openSite() {
+    Linking.openURL("https://example.org");
+  }
+
   render() {
     return (
       <View style={styles.container}>
@@ -34,7 +38,10 @@ class CounterView extends React.Component<
             <Text style={styles.buttonText}>Click Me</Text>
           </TouchableOpacity>
           <TouchableOpacity onPress={this.handleClickAsync} style={styles.button}>
-            <Text style={styles.buttonText}>Inc after 3 seconds</Text>
+            <Text style={styles.buttonText}>{`Count characters\nin example.org title`}</Text>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={this.openSite} style={styles.link}>
+            <Text style={styles.linkText}>{`Open example.org`}</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -42,14 +49,21 @@ class CounterView extends React.Component<
   }
 }
 
-const incrementAsync = () => (dispatch: typeof store.dispatch) => {
+const incrementAsync = () => async (dispatch: typeof store.dispatch) => {
   console.log("increment after 3 sec...");
   fetch('https://example.org/').then(async (reponse) => {
     const text = await reponse.text();
     const found = text.match(/<title>([a-zA-Z0-9 ]*)<\/title>/)
-    console.log(found ? found[1] : "no title found");
-    console.log("increment...");
-    dispatch(counterSlice.actions.increment());
+    const foundTitle  = found ? found[1] : "";
+    const charCount = foundTitle.length;
+
+    console.log("foundTitle:", foundTitle)
+    console.log("charCount:", charCount)
+
+    Alert.alert("Title: " + foundTitle + "\nNumber of characters: " + charCount);
+
+    dispatch(counterSlice.actions.setCounter(charCount));
+    // dispatch({type: "counter/setCounter", payload: charCount});  // this equals to previous call
   });
 }
 
@@ -95,5 +109,12 @@ const styles = StyleSheet.create({
   buttonText: {
     fontSize: 18,
     color: "#ffffff",
+  },
+  link: {
+    paddingVertical: 32,
+  },
+  linkText: {
+    fontSize: 18,
+    color: "#005ce6",
   },
 });

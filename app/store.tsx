@@ -13,6 +13,11 @@ export const counterSlice = createSlice({
     decrement: (state) => {
       state.storeCounter -= 1
     },
+    setCounter: (state, payload) => {
+      console.log("payload:", payload);
+      state.storeCounter = Number(payload.payload);
+      console.log("state.storeCounter:", state.storeCounter);
+    },
   },
 })
 
