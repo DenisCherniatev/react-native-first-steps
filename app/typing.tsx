@@ -26,3 +26,8 @@ export interface IStoreActions {
 
 export interface IStore extends TStoreState, IStoreActions {
 };
+
+export type TThemeContext = {
+  color: string;
+  backgroundColor: string;
+}
