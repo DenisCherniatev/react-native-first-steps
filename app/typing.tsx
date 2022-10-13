@@ -10,8 +10,14 @@ export type TComponentState = {
   counter: number;
 };
 
+export type TThemeContext = {
+  color: string;
+  backgroundColor: string;
+}
+
 export type TStoreCounterState = {
   storeCounter: number;
+  theme: TThemeContext;
 };
 
 export type TStoreState = {
@@ -22,12 +28,8 @@ export interface IStoreActions {
   increment: () => void;
   decrement: () => void;
   incrementAsync: () => void;
+  changeTheme: () => void;
 };
 
 export interface IStore extends TStoreState, IStoreActions {
 };
-
-export type TThemeContext = {
-  color: string;
-  backgroundColor: string;
-}
