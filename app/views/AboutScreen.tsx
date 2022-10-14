@@ -14,7 +14,7 @@ export default function AboutScreen(props: {navigation: any, route: any}): React
       <ScrollView contentInsetAdjustmentBehavior="automatic" contentContainerStyle={styles.scrollableContainer}>
         <View style={styles.content}>
           <Text style={styles.appName}>React Native First Steps</Text>
-          <Text style={styles.appVersion}>1.5.0</Text>
+          <Text style={styles.appVersion}>1.6.2</Text>
         </View>
       </ScrollView>
     </SafeAreaView>
