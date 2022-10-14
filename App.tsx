@@ -15,13 +15,13 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import store from './app/store';
-import AppWithStore from "./app/AppWithStore";
+import AppNavigation from "./app/AppNavigation";
 
 
 const App = () => {
   return (
     <Provider store={store}>
-      <AppWithStore />
+      <AppNavigation />
     </Provider>
   );
 };
