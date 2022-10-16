@@ -1,16 +1,18 @@
 import React, {ReactFragment, useEffect, useState} from 'react';
-import {View, Image, StyleSheet} from 'react-native';
-import { useSelector } from 'react-redux';
+import {View, Image, StyleSheet, Modal} from 'react-native';
+import { useSelector, useDispatch } from 'react-redux';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator, BottomTabNavigationOptions } from '@react-navigation/bottom-tabs';
  
 import R from "./R";
+import store, { counterSlice } from './store';
 import HomeScreen from "./views/HomeScreen";
 import SettingsScreen from "./views/SettingsScreen";
 import AboutScreen from "./views/AboutScreen";
 import { TStoreState } from "./typing";
 import { ThemeContext } from "./context";
+import { SelectLanguageModal } from "./views/modals/Modals";
  
  
 const Stack = createNativeStackNavigator();
@@ -88,16 +90,31 @@ const AppBottomTabsScreens = () => (
 
 const AppNavigation = () => {
   const theme = useSelector((state: TStoreState) => state.counter.theme);
+  const modalData = useSelector((state: TStoreState) => state.counter.modalData);
+  const dispatch: typeof store.dispatch = useDispatch();
 
-   return (
-      <ThemeContext.Provider value={theme}>
-        <NavigationContainer>
-          <Stack.Navigator screenOptions={{ headerShown: false }}>
-            <Stack.Screen name="BottomTabs" component={AppBottomTabsScreens} />
-          </Stack.Navigator>
-        </NavigationContainer>        
-      </ThemeContext.Provider>
-   );
+  function handleCloseModal() {
+    dispatch(counterSlice.actions.resetModal());
+  }
+
+  return (
+    <ThemeContext.Provider value={theme}>
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={Object.keys(modalData).length > 0}
+      >
+        <View style={styles.modalOverlay}>
+          <SelectLanguageModal closeButtonPressHandler={handleCloseModal} />
+        </View>
+      </Modal>
+      <NavigationContainer>
+        <Stack.Navigator screenOptions={{ headerShown: false }}>
+          <Stack.Screen name="BottomTabs" component={AppBottomTabsScreens} />
+        </Stack.Navigator>
+      </NavigationContainer>        
+    </ThemeContext.Provider>
+  );
 };
 
 const styles = StyleSheet.create({
@@ -109,6 +126,12 @@ const styles = StyleSheet.create({
   tabImageFocused: {
     tintColor: "#5b2785",
   },
+  modalOverlay: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: "rgba(0, 0, 0, 0.8)",
+  }
 });
 
 export default AppNavigation;

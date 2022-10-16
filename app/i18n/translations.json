@@ -1,0 +1,12 @@
+{
+  "en": {
+    "english": "English",
+    "spanish": "Spanish",
+    "Yes": "Yes",
+    "No": "No"
+  },
+  "es": {
+    "Yes": "es_Yes",
+    "No": "es_No"
+  }
+}

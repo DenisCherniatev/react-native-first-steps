@@ -15,9 +15,16 @@ export type TThemeContext = {
   backgroundColor: string;
 }
 
+export type TModalType = "SelectLanguage";
+export type TModalData = {
+  type: TModalType;
+  data?: any;
+};
+
 export type TStoreCounterState = {
   storeCounter: number;
   theme: TThemeContext;
+  modalData: TModalData;
 };
 
 export type TStoreState = {
@@ -29,6 +36,7 @@ export interface IStoreActions {
   decrement: () => void;
   incrementAsync: () => void;
   changeTheme: () => void;
+  setModal: () => void;
 };
 
 export interface IStore extends TStoreState, IStoreActions {

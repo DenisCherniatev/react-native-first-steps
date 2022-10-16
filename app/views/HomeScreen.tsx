@@ -1,9 +1,11 @@
 import React, {useEffect} from 'react';
-import {View, StyleSheet, SafeAreaView, StatusBar, ScrollView} from 'react-native';
+import {View, Text, SafeAreaView, StatusBar, ScrollView} from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 
 import store, { counterSlice } from '../store';
-import Button from './Button';
+import R from "../R";
+import Button from './controls/Button';
+import Radio from './controls/Radio';
 import CounterView from './CounterView';
 
 

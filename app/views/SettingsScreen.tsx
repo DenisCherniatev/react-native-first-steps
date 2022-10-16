@@ -43,14 +43,21 @@ export default function SettingsScreen(props: {navigation: any, route: any}): Re
       );
     }
 
+    function handleSwitchLanguage() {
+      dispatch(counterSlice.actions.setModal({
+        type: "SelectLanguage",
+      }));
+    }
+
     return (
-        <SafeAreaView>
-            <StatusBar barStyle={'light-content'} />
-            <ScrollView contentInsetAdjustmentBehavior="automatic">
-                <SettingsItem action={handleResetCounter} title="Reset Counter" />
-                <SettingsItem action={handleSwitchTheme} title="Switch Theme" />
-            </ScrollView>
-        </SafeAreaView>
+      <SafeAreaView>
+        <StatusBar barStyle={'light-content'} />
+        <ScrollView contentInsetAdjustmentBehavior="automatic">
+          <SettingsItem action={handleResetCounter} title="Reset Counter" />
+          <SettingsItem action={handleSwitchTheme} title="Switch Theme" />
+          <SettingsItem action={handleSwitchLanguage} title="Switch Language" />
+        </ScrollView>
+      </SafeAreaView>
     );
 }
 

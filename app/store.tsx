@@ -1,6 +1,6 @@
 import { createSlice, configureStore } from '@reduxjs/toolkit';
 
-import { TThemeContext, TStoreState } from "./typing";
+import { TThemeContext, TStoreState, TModalData } from "./typing";
 
 
 export const counterSlice = createSlice({
@@ -8,6 +8,7 @@ export const counterSlice = createSlice({
   initialState: {
     storeCounter: 0,
     theme: {} as TThemeContext,
+    modalData: {} as TModalData,
   },
   reducers: {
     increment: (state) => {
@@ -16,13 +17,19 @@ export const counterSlice = createSlice({
     decrement: (state) => {
       state.storeCounter -= 1
     },
-    setCounter: (state, payload) => {
-      console.log("payload:", payload);
-      state.storeCounter = Number(payload.payload);
+    setCounter: (state, params) => {
+      console.log("params:", params);
+      state.storeCounter = Number(params.payload);
       console.log("state.storeCounter:", state.storeCounter);
     },
     changeTheme: (state) => {
       state.theme = !state.theme.color ? {color: "#aa0000", backgroundColor: "#cccccc"} as TThemeContext : {} as TThemeContext
+    },
+    setModal: (state, params: {payload: TModalData, type: string}) => {
+      state.modalData = params.payload;
+    },
+    resetModal: (state) => {
+      state.modalData = {} as TModalData;
     },
   },
 })

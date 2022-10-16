@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 
 import {TStoreState} from '../typing';
 import store, { counterSlice } from '../store';
-import Button from './Button';
+import Button from './controls/Button';
 
 
 export default function CounterView(): React.ReactElement {
