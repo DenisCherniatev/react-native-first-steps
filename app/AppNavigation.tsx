@@ -7,7 +7,7 @@ import { createBottomTabNavigator, BottomTabNavigationOptions } from '@react-nav
  
 import R from "./R";
 import HomeScreen from "./views/HomeScreen";
-import OptionsScreen from "./views/OptionsScreen";
+import SettingsScreen from "./views/SettingsScreen";
 import AboutScreen from "./views/AboutScreen";
 import { TStoreState } from "./typing";
 import { ThemeContext } from "./context";
@@ -47,7 +47,7 @@ const AppBottomTabsScreens = () => (
     />
     <BottomTabs.Screen
       name={"SetingsTab"}
-      component={OptionsScreen}
+      component={SettingsScreen}
       listeners={({ navigation, route }) => ({
         tabPress: e => {
           navigation.navigate(route.name);
