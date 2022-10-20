@@ -13,16 +13,16 @@ export default function SettingsScreen(props: {navigation: any, route: any}): Re
 
     function handleResetCounter() {
       Alert.alert(
-        "Are you sure?",
+        R.strings.areYouSure,
         "",
         [
             {
-              text: "Yes",
+              text: R.strings.yes,
               onPress: () => {
                 dispatch(counterSlice.actions.setCounter(0));
               }
             },
-            { text: "No", onPress: () => {} },
+            { text: R.strings.no, onPress: () => {} },
         ],
         { cancelable: false },
       );
@@ -30,16 +30,16 @@ export default function SettingsScreen(props: {navigation: any, route: any}): Re
 
     function handleSwitchTheme() {
       Alert.alert(
-        "Please confirm switching.",
+        R.strings.pleaseConfirmWwitching,
         "",
         [
             {
-              text: "Confirm",
+              text: R.strings.confirm,
               onPress: () => {
                 dispatch(counterSlice.actions.changeTheme());
               }
             },
-            { text: "Cancel", onPress: () => {} },
+            { text: R.strings.cancel, onPress: () => {} },
         ],
         { cancelable: false },
       );

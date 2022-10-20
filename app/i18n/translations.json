@@ -12,6 +12,10 @@
     "home": "Home",
     "settings": "Settings",
     "about": "About",
+    "areYouSure": "Are you sure?",
+    "pleaseConfirmWwitching": "Please confirm switching.",
+    "confirm": "Confirm",
+    "cancel": "Cancel",
     "yes": "Yes",
     "no": "No"
   },
@@ -28,6 +32,10 @@
     "home": "Hogar",
     "settings": "Ajustes",
     "about": "Sobre",
+    "areYouSure": "Estas segura?",
+    "pleaseConfirmWwitching": "Por favor, confirme el cambio.",
+    "confirm": "Confirmar",
+    "cancel": "Cancelar",
     "yes": "Sí",
     "no": "No"
   }
