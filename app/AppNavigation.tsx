@@ -4,13 +4,14 @@ import { useSelector, useDispatch } from 'react-redux';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator, BottomTabNavigationOptions } from '@react-navigation/bottom-tabs';
+import AsyncStorage from '@react-native-async-storage/async-storage';
  
 import R from "./R";
 import store, { counterSlice } from './store';
 import HomeScreen from "./views/HomeScreen";
 import SettingsScreen from "./views/SettingsScreen";
 import AboutScreen from "./views/AboutScreen";
-import { TStoreState } from "./typing";
+import { TLang, TStoreState } from "./typing";
 import { ThemeContext } from "./context";
 import { SelectLanguageModal } from "./views/modals/Modals";
  
@@ -18,7 +19,10 @@ import { SelectLanguageModal } from "./views/modals/Modals";
 const Stack = createNativeStackNavigator();
 const BottomTabs = createBottomTabNavigator();
 
-const AppBottomTabsScreens = () => (
+const AppBottomTabsScreens = () => {
+  const lang = useSelector((state: TStoreState) => state.counter.lang);
+  
+  return (
   <BottomTabs.Navigator screenOptions={{
     initialRouteName: "HomeTab",
     tabBarStyle: {
@@ -41,7 +45,7 @@ const AppBottomTabsScreens = () => (
           style={[styles.tabImage, focused ? styles.tabImageFocused : {}]}
           source={R.images.home}
         />,
-        title: "Home",
+        title: R.strings.home,
         tabBarOptions: {
           activeTintColor: '#cd077d',
         }
@@ -60,7 +64,7 @@ const AppBottomTabsScreens = () => (
           style={[styles.tabImage, focused ? styles.tabImageFocused : {}]}
           source={R.images.settings}
         />,
-        title: "Settings",
+        title: R.strings.settings,
         tabBarOptions: {
           activeTintColor: '#cd077d',
         }
@@ -79,19 +83,24 @@ const AppBottomTabsScreens = () => (
           style={[styles.tabImage, focused ? styles.tabImageFocused : {}]}
           source={R.images.info}
         />,
-        title: "About",
+        title: R.strings.about,
         tabBarOptions: {
           activeTintColor: '#cd077d',
         }
       })}
     />
   </BottomTabs.Navigator>
-);
+)};
 
 const AppNavigation = () => {
+  const lang = useSelector((state: TStoreState) => state.counter.lang);
   const theme = useSelector((state: TStoreState) => state.counter.theme);
   const modalData = useSelector((state: TStoreState) => state.counter.modalData);
   const dispatch: typeof store.dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(loadLangAsync());
+  }, [])
 
   function handleCloseModal() {
     dispatch(counterSlice.actions.resetModal());
@@ -115,6 +124,11 @@ const AppNavigation = () => {
       </NavigationContainer>        
     </ThemeContext.Provider>
   );
+};
+
+const loadLangAsync = () => async (dispatch: typeof store.dispatch) => {
+  const lang = await AsyncStorage.getItem("lang") as TLang;
+  dispatch(counterSlice.actions.setLang(lang ?? "en"));
 };
 
 const styles = StyleSheet.create({

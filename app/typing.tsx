@@ -21,10 +21,13 @@ export type TModalData = {
   data?: any;
 };
 
+export type TLang = "en" | "es" | null;
+
 export type TStoreCounterState = {
   storeCounter: number;
   theme: TThemeContext;
   modalData: TModalData;
+  lang: TLang;
 };
 
 export type TStoreState = {

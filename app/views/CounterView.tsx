@@ -5,6 +5,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import {TStoreState} from '../typing';
 import store, { counterSlice } from '../store';
 import Button from './controls/Button';
+import R from '../R';
 
 
 export default function CounterView(): React.ReactElement {
@@ -29,10 +30,10 @@ export default function CounterView(): React.ReactElement {
         <Text style={styles.counterText}>{storeCounter}</Text>
       </View>
       <View style={styles.buttonsContainer}>
-        <Button onPress={handleClick}>Click Me</Button>
-        <Button onPress={handleClickAsync}>{`Count characters\nin example.org title`}</Button>
+        <Button onPress={handleClick}>{R.strings.clickMe}</Button>
+        <Button onPress={handleClickAsync}>{R.strings.countSiteTitle}</Button>
         <TouchableOpacity onPress={openSite} style={styles.link}>
-          <Text style={styles.linkText}>{`Open example.org`}</Text>
+          <Text style={styles.linkText}>{R.strings.openSite}</Text>
         </TouchableOpacity>
       </View>
     </View>

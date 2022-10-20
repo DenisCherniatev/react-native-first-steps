@@ -1,15 +1,36 @@
-import React, { useState } from "react";
-import { View, Text, TouchableOpacity, ScrollView, Image, KeyboardAvoidingView, StyleSheet } from "react-native";
+import React, { useEffect, useState } from "react";
+import { View, Text, TouchableOpacity, ScrollView, Image, KeyboardAvoidingView, StyleSheet, Alert } from "react-native";
+import { useSelector, useDispatch } from 'react-redux';
 
 import R from "../../R";
+import store, { counterSlice } from '../../store';
 import Radio from "../controls/Radio";
+import Button from "../controls/Button";
+import { TStoreState, TLang } from "../../typing";
 
 
 export function SelectLanguageModal(props: {closeButtonPressHandler?: () => void}) {
-    const [selectedLang, setSelectedLand] = useState("en");
+    const lang = useSelector((state: TStoreState) => state.counter.lang);
+    const [selectedLang, setSelectedLand] = useState(null as TLang);
+    const dispatch: typeof store.dispatch = useDispatch();
+
+    useEffect(() => {
+        if(selectedLang === null) {
+            setSelectedLand(lang);
+        }
+    }, [lang, selectedLang])
 
     function chooseLanguage(value: string) {
-        setSelectedLand(value);
+        setSelectedLand(value as TLang);
+    }
+
+    function handleSaveLang() {
+        dispatch(counterSlice.actions.setLang(selectedLang));
+        dispatch(counterSlice.actions.storeLang());
+        
+        if(props.closeButtonPressHandler) {
+            props.closeButtonPressHandler();
+        }
     }
 
     return (
@@ -26,6 +47,10 @@ export function SelectLanguageModal(props: {closeButtonPressHandler?: () => void
                     <Text style={styles.radioText}>{R.strings.spanish}</Text>
                 </View>
 
+            </View>
+
+            <View>
+                <Button onPress={handleSaveLang}>{R.strings.save}</Button>
             </View>
         </ScrollableModal>
     )
@@ -95,7 +120,6 @@ const styles = StyleSheet.create({
     },
     selector: {
         alignItems: 'flex-start',
-        marginBottom: 18,
         marginTop: 24,
         width: "100%",
     },

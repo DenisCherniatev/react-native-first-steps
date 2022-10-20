@@ -4,12 +4,14 @@ import { useSelector, useDispatch } from 'react-redux';
 
 import store, { counterSlice } from '../store';
 import R from "../R";
+import { TStoreState } from "../typing";
 import Button from './controls/Button';
 import Radio from './controls/Radio';
 import CounterView from './CounterView';
 
 
 export default function HomeScreen(props: {navigation: any, route: any}): React.ReactElement {
+  const lang = useSelector((state: TStoreState) => state.counter.lang);
   const dispatch: typeof store.dispatch = useDispatch();
 
   function handleSwitchTheme() {
@@ -19,7 +21,7 @@ export default function HomeScreen(props: {navigation: any, route: any}): React.
   return (
     <SafeAreaView>
       <StatusBar barStyle={'light-content'} />
-      <Button onPress={handleSwitchTheme}>Switch theme</Button>
+      <Button onPress={handleSwitchTheme}>{R.strings.switchTheme}</Button>
       <ScrollView contentInsetAdjustmentBehavior="automatic">
         <View>
           <CounterView />

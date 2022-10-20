@@ -1,14 +1,18 @@
 import { createSlice, configureStore } from '@reduxjs/toolkit';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
-import { TThemeContext, TStoreState, TModalData } from "./typing";
+import { TThemeContext, TStoreState, TModalData, TLang } from "./typing";
+import { setLocalization } from "./i18n/i18n";
 
 
+// AsyncStorage.removeItem("lang")
 export const counterSlice = createSlice({
   name: 'counter',
   initialState: {
     storeCounter: 0,
     theme: {} as TThemeContext,
     modalData: {} as TModalData,
+    lang: null as TLang,
   },
   reducers: {
     increment: (state) => {
@@ -30,6 +34,18 @@ export const counterSlice = createSlice({
     },
     resetModal: (state) => {
       state.modalData = {} as TModalData;
+    },
+    setLang: (state, params: {payload: TLang, type: string}) => {
+      state.lang = params.payload;
+      setLocalization(state.lang);
+    },
+    storeLang: (state) => {
+      if(state.lang) {
+        AsyncStorage.setItem("lang", state.lang)
+      }
+      else {
+        AsyncStorage.removeItem("lang")
+      }
     },
   },
 })

@@ -4,9 +4,11 @@ import { useSelector, useDispatch } from 'react-redux';
 
 import store, { counterSlice } from '../store';
 import R from "../R";
+import { TStoreState } from "../typing";
 
 
 export default function SettingsScreen(props: {navigation: any, route: any}): React.ReactElement {
+    const lang = useSelector((state: TStoreState) => state.counter.lang);  
     const dispatch: typeof store.dispatch = useDispatch();
 
     function handleResetCounter() {
@@ -53,9 +55,9 @@ export default function SettingsScreen(props: {navigation: any, route: any}): Re
       <SafeAreaView>
         <StatusBar barStyle={'light-content'} />
         <ScrollView contentInsetAdjustmentBehavior="automatic">
-          <SettingsItem action={handleResetCounter} title="Reset Counter" />
-          <SettingsItem action={handleSwitchTheme} title="Switch Theme" />
-          <SettingsItem action={handleSwitchLanguage} title="Switch Language" />
+          <SettingsItem action={handleResetCounter} title={R.strings.resetCounter} />
+          <SettingsItem action={handleSwitchTheme} title={R.strings.switchTheme} />
+          <SettingsItem action={handleSwitchLanguage} title={R.strings.switchLanguage} />
         </ScrollView>
       </SafeAreaView>
     );

@@ -1,12 +1,34 @@
 {
   "en": {
     "english": "English",
-    "spanish": "Spanish",
-    "Yes": "Yes",
-    "No": "No"
+    "spanish": "Española",
+    "save": "Save",
+    "countSiteTitle": "Count characters\nin example.org title",
+    "openSite": "Open example.org",
+    "resetCounter": "Reset Counter",
+    "switchTheme": "Switch Theme",
+    "switchLanguage": "Switch Language",
+    "clickMe": "Click Me",
+    "home": "Home",
+    "settings": "Settings",
+    "about": "About",
+    "yes": "Yes",
+    "no": "No"
   },
   "es": {
-    "Yes": "es_Yes",
-    "No": "es_No"
+    "english": "English",
+    "spanish": "Española",
+    "save": "Ahorrar",
+    "countSiteTitle": "Contar caracteres en el título\nde example.org",
+    "openSite": "Abra example.org",
+    "resetCounter": "Reiniciar contador",
+    "switchTheme": "Cambiar tema",
+    "switchLanguage": "Cambiar idioma",
+    "clickMe": "Haz click en mi",
+    "home": "Hogar",
+    "settings": "Ajustes",
+    "about": "Sobre",
+    "yes": "Sí",
+    "no": "No"
   }
 }
