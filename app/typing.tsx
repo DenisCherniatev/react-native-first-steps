@@ -13,6 +13,8 @@ export type TComponentState = {
 export type TThemeContext = {
   color: string;
   backgroundColor: string;
+  borderWidth: number;
+  borderColor: string;
 }
 
 export type TModalType = "SelectLanguage";

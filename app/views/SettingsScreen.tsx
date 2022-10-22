@@ -96,12 +96,12 @@ const styles = StyleSheet.create({
   },
   itemText: {
     fontSize: 16,
-    color: "#212121",
+    color: R.styles.colors.text,
     flex: 1,
   },
   itemImage: {
       width: 30,
       height: 30,
-      tintColor: "#212121",
+      tintColor: R.styles.colors.text,
   },
 });

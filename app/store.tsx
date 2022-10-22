@@ -1,6 +1,7 @@
 import { createSlice, configureStore } from '@reduxjs/toolkit';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
+import R from "./R";
 import { TThemeContext, TStoreState, TModalData, TLang } from "./typing";
 import { setLocalization } from "./i18n/i18n";
 
@@ -27,7 +28,15 @@ export const counterSlice = createSlice({
       console.log("state.storeCounter:", state.storeCounter);
     },
     changeTheme: (state) => {
-      state.theme = !state.theme.color ? {color: "#aa0000", backgroundColor: "#cccccc"} as TThemeContext : {} as TThemeContext
+      state.theme = !state.theme.color ? {
+        color: R.styles.colors.main,
+        backgroundColor: "transparent",
+        borderWidth: 1,
+        borderColor: R.styles.colors.main
+      } as TThemeContext : {
+        borderColor: R.styles.colors.main,
+        borderWidth: 1,
+      } as TThemeContext
     },
     setModal: (state, params: {payload: TModalData, type: string}) => {
       state.modalData = params.payload;

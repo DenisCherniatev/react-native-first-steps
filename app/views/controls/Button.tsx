@@ -10,7 +10,7 @@ export default function Button(props: {onPress: () => void, children: any}): Rea
 
   return (
     <TouchableOpacity onPress={props.onPress} style={[styles.button, themeContextValue]}>
-      <Text style={[styles.buttonText, themeContextValue]}>{props.children}</Text>
+      <Text style={[styles.buttonText, themeContextValue, {borderWidth: 0}]}>{props.children}</Text>
     </TouchableOpacity>
   )
 }

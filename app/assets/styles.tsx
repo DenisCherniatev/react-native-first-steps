@@ -16,4 +16,6 @@ export const colors = {
   main: "#005ce6",
   white: "#ffffff",
   text: "#212121",
+  black: "#000000",
+  inactiveTab: "#c4c4c4",
 };
