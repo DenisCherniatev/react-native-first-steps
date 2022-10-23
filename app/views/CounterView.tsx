@@ -1,23 +1,22 @@
 import React from 'react';
 import {Text, View, TouchableOpacity, StyleSheet, Linking, Alert} from 'react-native';
-import { useSelector, useDispatch } from 'react-redux';
 
-import {TStoreState} from '../typing';
-import store, { counterSlice } from '../store';
+import { useStoreState, useStoreActions } from "../store";
 import Button from './controls/Button';
 import R from '../R';
 
 
 export default function CounterView(): React.ReactElement {
-  const storeCounter = useSelector((state: TStoreState) => state.counter.storeCounter);
-  const dispatch: typeof store.dispatch = useDispatch();
+  const storeCounter = useStoreState((state) => state.storeCounter);
+  const increment = useStoreActions((actions) => actions.increment);
+  const incrementAsync = useStoreActions((actions) => actions.incrementAsync);
 
   function handleClick() {
-    dispatch(counterSlice.actions.increment());
+    increment();
   }
 
   function handleClickAsync() {
-    dispatch(incrementAsync());
+    incrementAsync();
   }
 
   function openSite() {
@@ -38,24 +37,6 @@ export default function CounterView(): React.ReactElement {
       </View>
     </View>
   );
-}
-
-const incrementAsync = () => async (dispatch: typeof store.dispatch) => {
-  console.log("increment after 3 sec...");
-  fetch('https://example.org/').then(async (reponse) => {
-    const text = await reponse.text();
-    const found = text.match(/<title>([a-zA-Z0-9 ]*)<\/title>/)
-    const foundTitle  = found ? found[1] : "";
-    const charCount = foundTitle.length;
-
-    console.log("foundTitle:", foundTitle)
-    console.log("charCount:", charCount)
-
-    Alert.alert("Title: " + foundTitle + "\nNumber of characters: " + charCount);
-
-    dispatch(counterSlice.actions.setCounter(charCount));
-    // dispatch({type: "counter/setCounter", payload: charCount});  // this equals to previous call
-  });
 }
 
 const styles = StyleSheet.create({

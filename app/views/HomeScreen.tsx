@@ -1,20 +1,18 @@
 import React, {useEffect} from 'react';
 import {View, Text, SafeAreaView, StatusBar, ScrollView, StyleSheet} from 'react-native';
-import { useSelector, useDispatch } from 'react-redux';
 
-import store, { counterSlice } from '../store';
+import { useStoreState, useStoreActions } from "../store";
 import R from "../R";
-import { TStoreState } from "../typing";
 import Button from './controls/Button';
 import CounterView from './CounterView';
 
 
 export default function HomeScreen(props: {navigation: any, route: any}): React.ReactElement {
-  const lang = useSelector((state: TStoreState) => state.counter.lang);
-  const dispatch: typeof store.dispatch = useDispatch();
+  const lang = useStoreState((state) => state.lang);
+  const changeTheme = useStoreActions((actions) => actions.changeTheme);
 
   function handleSwitchTheme() {
-    dispatch(counterSlice.actions.changeTheme());
+    changeTheme();
   }
 
   return (

@@ -1,13 +1,8 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import {View, StyleSheet, SafeAreaView, StatusBar, ScrollView, Text} from 'react-native';
-import { useSelector, useDispatch } from 'react-redux';
-
-import store, { counterSlice } from '../store';
 
 
-export default function AboutScreen(props: {navigation: any, route: any}): React.ReactElement {
-  const dispatch: typeof store.dispatch = useDispatch();
-
+export default function AboutScreen(): React.ReactElement {
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar barStyle={'light-content'} />

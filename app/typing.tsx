@@ -25,23 +25,26 @@ export type TModalData = {
 
 export type TLang = "en" | "es" | null;
 
-export type TStoreCounterState = {
+export type TStoreState = {
   storeCounter: number;
   theme: TThemeContext;
   modalData: TModalData;
   lang: TLang;
 };
 
-export type TStoreState = {
-  counter: TStoreCounterState;
-};
+import { Action, Thunk } from "easy-peasy";
 
 export interface IStoreActions {
-  increment: () => void;
-  decrement: () => void;
-  incrementAsync: () => void;
-  changeTheme: () => void;
-  setModal: () => void;
+  increment: Action<TStoreState>;
+  decrement: Action<TStoreState>;
+  setCounter: Action<TStoreState, number>;
+  incrementAsync: Thunk<IStoreActions>;
+  changeTheme: Action<TStoreState>;
+  setModal: Action<TStoreState, TModalData>;
+  resetModal: Action<TStoreState>;
+  setLang: Action<TStoreState, TLang>;
+  storeLang: Thunk<IStoreActions, any, {getStoreState: () => TStoreState}>;
+  loadLang: Thunk<IStoreActions>;
 };
 
 export interface IStore extends TStoreState, IStoreActions {

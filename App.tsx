@@ -8,8 +8,8 @@
  * @format
  */
 
-import React, {useEffect, useState} from 'react';
-import { Provider } from 'react-redux';
+import React from 'react';
+import { StoreProvider } from "easy-peasy"
 
 import store from './app/store';
 import AppNavigation from "./app/AppNavigation";
@@ -17,9 +17,9 @@ import AppNavigation from "./app/AppNavigation";
 
 const App = () => {
   return (
-    <Provider store={store}>
+    <StoreProvider store={store}>
       <AppNavigation />
-    </Provider>
+    </StoreProvider>
   );
 };
 

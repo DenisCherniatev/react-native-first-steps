@@ -1,18 +1,18 @@
 import React, { useEffect, useState } from "react";
 import { View, Text, TouchableOpacity, ScrollView, Image, KeyboardAvoidingView, StyleSheet, Alert } from "react-native";
-import { useSelector, useDispatch } from 'react-redux';
 
 import R from "../../R";
-import store, { counterSlice } from '../../store';
+import { useStoreState, useStoreActions } from "../../store";
 import Radio from "../controls/Radio";
 import Button from "../controls/Button";
 import { TStoreState, TLang } from "../../typing";
 
 
 export function SelectLanguageModal(props: {closeButtonPressHandler?: () => void}) {
-    const lang = useSelector((state: TStoreState) => state.counter.lang);
+    const lang = useStoreState((state) => state.lang);
+    const setLang = useStoreActions((actions) => actions.setLang);
+    const storeLang = useStoreActions((actions) => actions.storeLang);
     const [selectedLang, setSelectedLand] = useState(null as TLang);
-    const dispatch: typeof store.dispatch = useDispatch();
 
     useEffect(() => {
         if(selectedLang === null) {
@@ -25,8 +25,8 @@ export function SelectLanguageModal(props: {closeButtonPressHandler?: () => void
     }
 
     function handleSaveLang() {
-        dispatch(counterSlice.actions.setLang(selectedLang));
-        dispatch(counterSlice.actions.storeLang());
+        setLang(selectedLang);
+        storeLang(null);
         
         if(props.closeButtonPressHandler) {
             props.closeButtonPressHandler();

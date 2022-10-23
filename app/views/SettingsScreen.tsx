@@ -1,15 +1,15 @@
 import React, {useEffect} from 'react';
 import {View, StyleSheet, SafeAreaView, StatusBar, ScrollView, Text, TouchableOpacity, Image, Alert} from 'react-native';
-import { useSelector, useDispatch } from 'react-redux';
 
-import store, { counterSlice } from '../store';
+import { useStoreState, useStoreActions } from "../store";
 import R from "../R";
-import { TStoreState } from "../typing";
 
 
 export default function SettingsScreen(props: {navigation: any, route: any}): React.ReactElement {
-    const lang = useSelector((state: TStoreState) => state.counter.lang);  
-    const dispatch: typeof store.dispatch = useDispatch();
+    const lang = useStoreState((state) => state.lang);
+    const setCounter = useStoreActions((actions) => actions.setCounter);
+    const changeTheme = useStoreActions((actions) => actions.changeTheme);
+    const setModal = useStoreActions((actions) => actions.setModal);    
 
     function handleResetCounter() {
       Alert.alert(
@@ -19,7 +19,7 @@ export default function SettingsScreen(props: {navigation: any, route: any}): Re
             {
               text: R.strings.yes,
               onPress: () => {
-                dispatch(counterSlice.actions.setCounter(0));
+                setCounter(0);
               }
             },
             { text: R.strings.no, onPress: () => {} },
@@ -36,7 +36,7 @@ export default function SettingsScreen(props: {navigation: any, route: any}): Re
             {
               text: R.strings.confirm,
               onPress: () => {
-                dispatch(counterSlice.actions.changeTheme());
+                changeTheme();
               }
             },
             { text: R.strings.cancel, onPress: () => {} },
@@ -46,9 +46,9 @@ export default function SettingsScreen(props: {navigation: any, route: any}): Re
     }
 
     function handleSwitchLanguage() {
-      dispatch(counterSlice.actions.setModal({
+      setModal({
         type: "SelectLanguage",
-      }));
+      });
     }
 
     return (
